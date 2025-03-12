@@ -17,12 +17,19 @@ find_library(HAIKU_LIB_BE
     PATHS /boot/system/develop/lib
 )
 
+find_library(HAIKU_LIB_TRACKER
+    NAMES tracker
+    PATHS /boot/system/develop/lib
+)
+
 # Include the Haiku system headers
 target_include_directories(HaikuSex
     PRIVATE ${HAIKU_INCLUDE_DIR}
 )
 
-# Link against the BeAPI (Haiku's UI API)
+# Link against the BeAPI (Haiku's UI API) and Tracker library (needed for BFilePanel)
 target_link_libraries(HaikuSex
-    PRIVATE ${HAIKU_LIB_BE}
+    PRIVATE
+        ${HAIKU_LIB_BE}
+        ${HAIKU_LIB_TRACKER}
 )
