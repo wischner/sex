@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+
+    "tasks": [
+        {
+            "label": "Sync to Haiku VM (rsync)",
+            "type": "shell",
+            "command": "rsync",
+            "args": [
+                "-avz",
+                "--rsync-path=/boot/system/bin/rsync",
+                "-e",
+                "ssh -T -o 'RemoteCommand=none' -o 'RequestTTY=no'",
+                "/media/tomaz/Work/sex/",
+                "user@haiku-vm:/boot/home/Projects/sex/"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "CMake Configure (Haiku VM)",
+            "type": "shell",
+            "command": "ssh",
+            "args": [
+                "user@haiku-vm",
+                "cd /boot/home/Projects/sex/ && cmake -B build -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "problemMatcher": [],
+            "dependsOn": ["Sync to Haiku VM (rsync)"]
+        },
+        {
+            "label": "Build (Haiku VM)",
+            "type": "shell",
+            "command": "ssh",
+            "args": [
+                "user@haiku-vm",
+                "cd /boot/home/Projects/sex/build && make -j$(nproc)"
+            ],
+            "problemMatcher": ["$gcc"],
+            "dependsOn": ["CMake Configure (Haiku VM)"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug on Haiku VM",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/boot/home/Projects/sex/build/HaikuSex",
+            "cwd": "/boot/home/Projects/sex/build/",
+            "MIMode": "gdb",
+            "ssh": {
+                "host": "haiku-vm",
+                "user": "user"
+            },
+            "pipeTransport": {
+                "pipeProgram": "ssh",
+                "pipeArgs": [
+                    "-T", // Important: prevents SSH from starting an interactive session
+                    "user@haiku-vm"
+                ],
+                "debuggerPath": "/bin/gdb"
+            },
+            "setupCommands": [
+                {
+                    "text": "-gdb-set non-stop on",
+                    "description": "Enable non-stop mode",
+                    "ignoreFailures": true
+                },
+                {
+                    "text": "-exec set pagination off",
+                    "description": "Disable pagination for non-blocking behavior",
+                    "ignoreFailures": true
+                }
+            ],
+            "sourceFileMap": {
+                "/boot/home/Projects/sex/": "${workspaceFolder}"
+            },
+            "preLaunchTask": "Build (Haiku VM)",
+            "console": "integratedTerminal",
+            "externalConsole": false,
+            "stopAtEntry": true
+        }
+    ]
+}
