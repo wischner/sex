@@ -1,32 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project Name
-project(HaikuSexProject)
+project(HaikuSexProject LANGUAGES C CXX)
 
-# Set C++ standard
+# Set C++ standard globally
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Target system (Haiku)
-set(CMAKE_SYSTEM_NAME Haiku)
-
-# Set Debug Build Type
+# Set default build type to Debug if none is specified
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-# Define source files
-set(SRC_FILES src/main.cpp)
+# Output build type info
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
-# Add the executable
-add_executable(HaikuSex ${SRC_FILES})
-
-# Find Haiku system include directories and libraries
-find_path(HAIKU_INCLUDE_DIR NAMES app/Application.h PATHS /boot/system/develop/headers/be)
-find_library(HAIKU_LIB_BE NAMES be PATHS /boot/system/develop/lib)
-
-# Include Haiku headers
-target_include_directories(HaikuSex PRIVATE ${HAIKU_INCLUDE_DIR})
-
-# Link against Haiku's BeAPI
-target_link_libraries(HaikuSex PRIVATE ${HAIKU_LIB_BE})
+# Add the src folder to the build
+add_subdirectory(src)

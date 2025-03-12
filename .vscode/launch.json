@@ -5,7 +5,7 @@
             "name": "Debug on Haiku VM",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/boot/home/Projects/sex/build/HaikuSex",
+            "program": "/boot/home/Projects/sex/build/src/core/HaikuSex",
             "cwd": "/boot/home/Projects/sex/build/",
             "MIMode": "gdb",
             "ssh": {
