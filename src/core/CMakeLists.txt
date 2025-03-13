@@ -1,8 +1,12 @@
 # Collect all the source files for the program
 set(SRC_FILES
     main.cpp
+    App.cpp
+    MainWindow.cpp
+    MainMenu.cpp
+    FileOpenDialog.cpp
+    FileView.cpp
 )
-
 # Create the executable for the main application
 add_executable(HaikuSex ${SRC_FILES})
 
