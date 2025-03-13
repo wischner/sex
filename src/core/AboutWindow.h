@@ -11,6 +11,8 @@ public:
 
 private:
     void CenterInParent(BWindow* parent);
+
+    BWindow* fParentWindow;
 };
 
 #endif

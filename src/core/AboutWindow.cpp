@@ -4,7 +4,8 @@
 
 AboutWindow::AboutWindow(BWindow* parent)
     : BWindow(BRect(0, 0, 300, 200), "About Settings Explorer", B_TITLED_WINDOW,
-              B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_AUTO_UPDATE_SIZE_LIMITS) {
+              B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_AUTO_UPDATE_SIZE_LIMITS),
+              fParentWindow(parent)  {
 
     SetFeel(B_MODAL_APP_WINDOW_FEEL); 
 
@@ -14,7 +15,7 @@ AboutWindow::AboutWindow(BWindow* parent)
 
     BStringView* version = new BStringView("version", "Version 1.0");
     BStringView* copyright = new BStringView("copyright",
-                                             "© 2024 Tomaz. All rights reserved.");
+                                             "© 2024 Wischner Ltd. All rights reserved.");
 
     BButton* closeButton = new BButton("Close", new BMessage(B_QUIT_REQUESTED));
 
@@ -28,12 +29,19 @@ AboutWindow::AboutWindow(BWindow* parent)
         .AddGlue()
         .Add(closeButton);
 
-    // Center on parent window
-    CenterInParent(parent);
+
+    BLayout* layout = GetLayout();
+    if (layout) {
+        layout->Relayout();
+    }
+    ResizeToPreferred();
+
+    CenterInParent(fParentWindow);
 
     // Show the window
     Show();
 }
+
 
 void AboutWindow::CenterInParent(BWindow* parent) {
     if (!parent)
