@@ -1,7 +1,7 @@
 // MainApp.cpp
 #include "App.h"
 #include "MainWindow.h"
-#include <Alert.h>
+#include "AboutWindow.h"
 
 App::App()
     : BApplication("application/x-vnd.settings-explorer") {}
@@ -12,7 +12,6 @@ void App::ReadyToRun() {
 }
 
 void App::AboutRequested() {
-    // Show a simple About box
-    BAlert* about = new BAlert("About", "Settings Explorer\n\nBy You!", "OK");
-    about->Go();
+    BWindow* mainWindow = dynamic_cast<BWindow*>(be_app->WindowAt(0));
+    new AboutWindow(mainWindow);
 }

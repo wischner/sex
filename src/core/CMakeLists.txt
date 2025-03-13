@@ -6,6 +6,7 @@ set(SRC_FILES
     MainMenu.cpp
     FileOpenDialog.cpp
     FileView.cpp
+    AboutWindow.cpp
 )
 # Create the executable for the main application
 add_executable(HaikuSex ${SRC_FILES})
