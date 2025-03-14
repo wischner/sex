@@ -33,18 +33,18 @@
         },
         {
             "label": "Build (Haiku VM)",
-            "type": "shell",
-            "command": "ssh",
+            "type": "process",
+            "command": "bash",
             "args": [
-                "user@haiku-vm",
-                "cd /boot/home/Projects/sex/build && make -j$(nproc)"
+                "-c",
+                "ssh user@haiku-vm 'cd /boot/home/Projects/sex/build && make -j4' | sed 's|/boot/home/Projects/sex|/media/tomaz/Work/sex|g'"
             ],
-            "problemMatcher": ["$gcc"],
-            "dependsOn": ["CMake Configure (Haiku VM)"],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": "$gcc",
+            "dependsOn": ["CMake Configure (Haiku VM)"]
         }
     ]
 }
